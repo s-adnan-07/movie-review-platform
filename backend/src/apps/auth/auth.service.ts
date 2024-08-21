@@ -7,10 +7,14 @@ import {
 } from '@nestjs/common'
 import { CreateUserDto, LoginDetailsDto } from '@/shared'
 import { UsersService } from '../users/users.service'
+import { JwtService } from '@nestjs/jwt'
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async register(createUserDto: CreateUserDto) {
     const { email, password, ...newUser } = createUserDto
@@ -34,18 +38,20 @@ export class AuthService {
   }
 
   async login({ email, password }: LoginDetailsDto) {
-    const user = await this.usersService.findUser(email)
+    const userExists = await this.usersService.findUser(email)
     const passwordsMatch = await this.comparePasswords(
       password,
-      user?.password || '',
+      userExists?.password || '',
     )
 
-    if (!user || !passwordsMatch) {
+    if (!userExists || !passwordsMatch) {
       throw new UnauthorizedException(`Invalid email or password`)
     }
 
-    const { _id, password: userPassword, ...hydratedUser } = user
-    return hydratedUser
+    const { _id, password: userPassword, ...user } = userExists
+    const token = await this.jwtService.signAsync(user)
+
+    return { token, user }
   }
 
   hashPassword(password: string) {

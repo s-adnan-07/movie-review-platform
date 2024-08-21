@@ -1,6 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Post, Res } from '@nestjs/common'
 import { CreateUserDto, LoginDetailsDto } from '@/shared'
 import { AuthService } from './auth.service'
+import { Response } from 'express'
 
 @Controller('auth')
 export class AuthController {
@@ -12,7 +13,12 @@ export class AuthController {
   }
 
   @Post('login')
-  login(@Body() loginDetailsDto: LoginDetailsDto) {
-    return this.authService.login(loginDetailsDto)
+  async login(
+    @Body() loginDetailsDto: LoginDetailsDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const { token, user } = await this.authService.login(loginDetailsDto)
+    response.header('jwt', token)
+    return user
   }
 }
