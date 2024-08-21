@@ -1,6 +1,11 @@
 import * as bcrypt from 'bcrypt'
-import { ForbiddenException, HttpStatus, Injectable } from '@nestjs/common'
-import { CreateUserDto } from '@/shared'
+import {
+  ForbiddenException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common'
+import { CreateUserDto, LoginDetailsDto } from '@/shared'
 import { UsersService } from '../users/users.service'
 
 @Injectable()
@@ -26,6 +31,21 @@ export class AuthService {
       statusCode: HttpStatus.CREATED,
       message: `User '${name}' created successfully`,
     }
+  }
+
+  async login({ email, password }: LoginDetailsDto) {
+    const user = await this.usersService.findUser(email)
+    const passwordsMatch = await this.comparePasswords(
+      password,
+      user?.password || '',
+    )
+
+    if (!user || !passwordsMatch) {
+      throw new UnauthorizedException(`Invalid email or password`)
+    }
+
+    const { _id, password: userPassword, ...hydratedUser } = user
+    return hydratedUser
   }
 
   hashPassword(password: string) {
