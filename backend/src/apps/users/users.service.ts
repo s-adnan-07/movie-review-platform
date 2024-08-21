@@ -14,6 +14,6 @@ export class UsersService {
 
   createUser = (createUserDto: CreateUserDto) => {
     const user = this.UsersRepository.create(createUserDto)
-    return this.UsersRepository.insert(user)
+    return this.UsersRepository.save(user)
   }
 }

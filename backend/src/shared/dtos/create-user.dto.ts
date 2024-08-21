@@ -7,6 +7,6 @@ export class CreateUserDto extends LoginDetailsDto {
   name: string
 
   @IsOptional()
-  @IsIn(['local', 'admin'])
-  role: 'local' | 'admin' = 'local'
+  @IsString()
+  role: 'local'
 }

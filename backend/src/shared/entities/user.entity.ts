@@ -16,6 +16,6 @@ export class UserEntity {
   password: string
 
   // This is the only way to set default values
-  @Column({ type: 'enum', enum: ['local', 'admin'] })
-  role: 'local' | 'admin' = 'local'
+  @Column({ type: 'string' })
+  role = 'local'
 }
