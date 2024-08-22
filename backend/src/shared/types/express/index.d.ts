@@ -1,10 +1,7 @@
-import { UserInfoDto } from '@/shared/dtos/user-info.dto'
+import { UserInfo } from '@/shared/classes/user-info'
 
 declare global {
   namespace Express {
-    export interface Request {
-      user?: UserInfoDto
-    }
+    interface User extends UserInfo {}
   }
 }
-
