@@ -4,3 +4,4 @@ export * from './dtos/create-user.dto'
 export * from './dtos/login-details.dto'
 
 export * from './entities/user.entity'
+export * from './entities/movie.entity'

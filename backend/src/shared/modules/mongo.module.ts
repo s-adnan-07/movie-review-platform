@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UserEntity } from '../entities/user.entity'
+import { MovieEntity } from '../entities/movie.entity'
 
 @Module({
   imports: [
@@ -9,7 +10,7 @@ import { UserEntity } from '../entities/user.entity'
       host: 'localhost',
       port: 27017,
       database: 'movies_db',
-      entities: [UserEntity],
+      entities: [UserEntity, MovieEntity],
       synchronize: true,
     }),
   ],

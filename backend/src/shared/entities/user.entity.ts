@@ -1,4 +1,4 @@
-import { Column, Entity, ObjectId, ObjectIdColumn, Unique } from 'typeorm'
+import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm'
 
 @Entity({ name: 'users' })
 export class UserEntity {
