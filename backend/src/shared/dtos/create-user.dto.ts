@@ -8,5 +8,5 @@ export class CreateUserDto extends LoginDetailsDto {
 
   @IsOptional()
   @IsString()
-  role: 'local'
+  role: string = 'local'
 }
