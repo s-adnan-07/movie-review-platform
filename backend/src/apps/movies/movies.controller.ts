@@ -10,15 +10,11 @@ import {
 } from '@nestjs/common'
 import { CreateReviewDto, JwtGuard } from '@/shared'
 import { MoviesService } from './movies.service'
-import { ReviewsService } from '../reviews/reviews.service'
 import { Request } from 'express'
 
 @Controller('movies')
 export class MoviesController {
-  constructor(
-    private readonly moviesService: MoviesService,
-    private readonly reviewsService: ReviewsService,
-  ) {}
+  constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
   findAll(@Query('page') page: number, @Query('limit') limit: number) {
