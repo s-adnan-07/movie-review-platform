@@ -1,23 +1,29 @@
 import {
   CallHandler,
   ExecutionContext,
-  HttpStatus,
   Injectable,
   NestInterceptor,
 } from '@nestjs/common'
+import { Response } from 'express'
 import { map, Observable } from 'rxjs'
 
-export interface Response<T> {
-  status: number
+export interface ResponseObject<T> {
+  statusCode: number
   message: string
   data: T
 }
 
 @Injectable()
-export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
+export class ResponseInterceptor<T>
+  implements NestInterceptor<T, ResponseObject<T>>
+{
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    return next
-      .handle()
-      .pipe(map(data => ({ status: HttpStatus.OK, message: 'Success', data })))
+    const { statusCode, statusMessage } = context
+      .switchToHttp()
+      .getResponse<Response>()
+
+    const message = statusMessage ?? 'Success'
+
+    return next.handle().pipe(map(data => ({ statusCode, message, data })))
   }
 }

@@ -31,10 +31,7 @@ export class AuthService {
       password: hashedPassword,
     })
 
-    return {
-      statusCode: HttpStatus.CREATED,
-      message: `User '${name}' created successfully`,
-    }
+    return `User '${name}' created successfully`
   }
 
   async login({ email, password }: LoginDetailsDto) {
