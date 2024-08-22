@@ -5,3 +5,5 @@ export * from './dtos/login-details.dto'
 
 export * from './entities/user.entity'
 export * from './entities/movie.entity'
+
+export * from './interceptors/response.interceptor'
