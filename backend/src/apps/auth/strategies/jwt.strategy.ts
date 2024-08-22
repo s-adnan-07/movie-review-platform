@@ -1,4 +1,4 @@
-import { UserInfoDto } from '@/shared'
+import { UserInfo, UserJwt } from '@/shared'
 import { Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
@@ -14,6 +14,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     })
   }
 
-  validate = ({ iat, exp, ...user }: UserInfoDto) => user
+  validate = ({ iat, exp, ...user }: UserJwt): UserInfo => user
 }
 
