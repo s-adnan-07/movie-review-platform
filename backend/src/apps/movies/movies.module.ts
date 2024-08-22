@@ -5,10 +5,16 @@ import { MoviesService } from './movies.service'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ReviewsModule } from '../reviews/reviews.module'
 import { ReviewsService } from '../reviews/reviews.service'
+import { UsersModule } from '../users/users.module'
+import { UsersService } from '../users/users.service'
 
 @Module({
-  imports: [ReviewsModule, TypeOrmModule.forFeature([MovieEntity])],
+  imports: [
+    ReviewsModule,
+    UsersModule,
+    TypeOrmModule.forFeature([MovieEntity]),
+  ],
   controllers: [MoviesController],
-  providers: [MoviesService, ReviewsService],
+  providers: [MoviesService, ReviewsService, UsersService],
 })
 export class MoviesModule {}

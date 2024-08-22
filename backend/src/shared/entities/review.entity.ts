@@ -1,5 +1,6 @@
 import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm'
 
+// TODO: add movie + user field and make it unique
 @Entity({ name: 'reviews' })
 export class ReviewEntity {
   @ObjectIdColumn()
@@ -11,7 +12,6 @@ export class ReviewEntity {
   @Column()
   movieName: string
 
-  // TODO: integrate with user
   @Column('string')
   user: ObjectId
 

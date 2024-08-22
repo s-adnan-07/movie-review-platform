@@ -32,7 +32,7 @@ export class MoviesController {
 
   @Get(':movieId/reviews')
   findReviews(@Param('id') id: string) {
-    return this.reviewsService.find(id)
+    return this.moviesService.findReviews(id)
   }
 
   @UseGuards(JwtGuard)
@@ -42,6 +42,6 @@ export class MoviesController {
     @Body() createReviewDto: CreateReviewDto,
     @Req() { user }: Request,
   ) {
-    return this.reviewsService.create(movieId, user, createReviewDto)
+    return this.moviesService.createReview(movieId, user, createReviewDto)
   }
 }
