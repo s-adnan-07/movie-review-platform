@@ -3,7 +3,6 @@ import {
   MovieEntity,
   ReviewEntity,
   UserEntity,
-  UserInfo,
 } from '@/shared'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
@@ -19,25 +18,6 @@ export class ReviewsService {
 
   find(id: string) {
     return this.ReviewsRepository.find({ where: { movie: new ObjectId(id) } })
-  }
-
-  // TODO: Ensure a user can post only 1 review per movie
-  // Create a combo field "username + moviename"
-  // If it exists, throw error
-  // Use insert instead of save to catch duplicate key errors
-  create(
-    movieId: string,
-    { _id, name }: UserInfo,
-    createReviewDto: CreateReviewDto,
-  ) {
-    const review = this.ReviewsRepository.create({
-      movie: new ObjectId(movieId),
-      user: new ObjectId(_id),
-      userName: name,
-      ...createReviewDto,
-    })
-
-    return this.ReviewsRepository.save(review)
   }
 
   // TODO: convert positional arguments to object
