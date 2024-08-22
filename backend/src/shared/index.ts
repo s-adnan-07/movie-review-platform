@@ -14,3 +14,6 @@ export * from './entities/review.entity'
 
 // Interceptors
 export * from './interceptors/response.interceptor'
+
+// Decorators
+export * from './decorators/public.decorator'
