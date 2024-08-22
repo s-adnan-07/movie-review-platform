@@ -49,7 +49,7 @@ export class AuthService {
     }
 
     /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    const { _id, password: userPassword, ...user } = userExists
+    const { password: userPassword, ...user } = userExists
     const token = await this.jwtService.signAsync(user)
 
     return { token, user }
