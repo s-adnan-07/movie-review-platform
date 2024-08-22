@@ -40,4 +40,12 @@ export class ReviewsService {
 
     return this.ReviewsRepository.save(review)
   }
+
+  update(id: string, updateReviewDto: CreateReviewDto) {
+    return this.ReviewsRepository.update(id, updateReviewDto)
+  }
+
+  delete(id: string) {
+    return this.ReviewsRepository.delete(id)
+  }
 }
