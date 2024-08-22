@@ -23,3 +23,7 @@ export * from './guards/jwt.guard'
 // Classes
 export * from './classes/user-info'
 export * from './classes/user-jwt'
+
+// Interfaces
+export * from './interfaces/update-result.interface'
+export * from './interfaces/delete-result.interface'
