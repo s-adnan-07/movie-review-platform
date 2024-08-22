@@ -1,7 +1,17 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common'
-import { CreateReviewDto } from '@/shared'
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common'
+import { CreateReviewDto, JwtGuard } from '@/shared'
 import { MoviesService } from './movies.service'
 import { ReviewsService } from '../reviews/reviews.service'
+import { Request } from 'express'
 
 @Controller('movies')
 export class MoviesController {
@@ -20,16 +30,18 @@ export class MoviesController {
     return this.moviesService.findOne(id)
   }
 
-  @Get(':id/reviews')
+  @Get(':movieId/reviews')
   findReviews(@Param('id') id: string) {
     return this.reviewsService.find(id)
   }
 
-  @Post(':id/reviews')
+  @UseGuards(JwtGuard)
+  @Post(':movieId/reviews')
   createReview(
-    @Param('id') id: string,
+    @Param('movieId') movieId: string,
     @Body() createReviewDto: CreateReviewDto,
+    @Req() { user }: Request,
   ) {
-    return this.reviewsService.create(id, createReviewDto)
+    return this.reviewsService.create(movieId, user, createReviewDto)
   }
 }
