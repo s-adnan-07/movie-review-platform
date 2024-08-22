@@ -17,3 +17,6 @@ export * from './interceptors/response.interceptor'
 
 // Decorators
 export * from './decorators/public.decorator'
+
+// Guards
+export * from './guards/jwt.guard'

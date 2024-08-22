@@ -1,7 +1,15 @@
-import { Body, Controller, Post, Res } from '@nestjs/common'
-import { CreateUserDto, LoginDetailsDto } from '@/shared'
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common'
+import { CreateUserDto, JwtGuard, LoginDetailsDto } from '@/shared'
 import { AuthService } from './auth.service'
-import { Response } from 'express'
+import { Request, Response } from 'express'
 
 @Controller('auth')
 export class AuthController {
@@ -19,6 +27,13 @@ export class AuthController {
   ) {
     const { token, user } = await this.authService.login(loginDetailsDto)
     response.header('jwt', token)
+    return user
+  }
+
+  // For testing
+  @UseGuards(JwtGuard)
+  @Get('route')
+  protectedRoute(@Req() { user }: Request) {
     return user
   }
 }
