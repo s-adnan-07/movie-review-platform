@@ -48,6 +48,7 @@ export class AuthService {
       throw new UnauthorizedException(`Invalid email or password`)
     }
 
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
     const { _id, password: userPassword, ...user } = userExists
     const token = await this.jwtService.signAsync(user)
 
