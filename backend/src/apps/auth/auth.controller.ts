@@ -1,15 +1,7 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-} from '@nestjs/common'
-import { CreateUserDto, JwtGuard, LoginDetailsDto } from '@/shared'
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common'
+import { CreateUserDto, JwtGuard, LocalGuard } from '@/shared'
 import { AuthService } from './auth.service'
-import { Request, Response } from 'express'
+import { Request } from 'express'
 
 @Controller('auth')
 export class AuthController {
@@ -20,14 +12,10 @@ export class AuthController {
     return this.authService.register(createUserDto)
   }
 
+  @UseGuards(LocalGuard)
   @Post('login')
-  async login(
-    @Body() loginDetailsDto: LoginDetailsDto,
-    @Res({ passthrough: true }) response: Response,
-  ) {
-    const { token, user } = await this.authService.login(loginDetailsDto)
-    response.header('jwt', token)
-    return user
+  async login(@Req() { user }: Request) {
+    return this.authService.generateToken(user)
   }
 
   // For testing

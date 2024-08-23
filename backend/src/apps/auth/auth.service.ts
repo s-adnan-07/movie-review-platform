@@ -1,11 +1,10 @@
 import * as bcrypt from 'bcrypt'
 import {
   ForbiddenException,
-  HttpStatus,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common'
-import { CreateUserDto, LoginDetailsDto } from '@/shared'
+import { CreateUserDto, LoginDetailsDto, UserInfo } from '@/shared'
 import { UsersService } from '../users/users.service'
 import { JwtService } from '@nestjs/jwt'
 
@@ -34,22 +33,23 @@ export class AuthService {
     return `User '${name}' created successfully`
   }
 
-  async login({ email, password }: LoginDetailsDto) {
+  async validateUser({ email, password }: LoginDetailsDto): Promise<UserInfo> {
     const userExists = await this.usersService.findUser(email)
     const passwordsMatch = await this.comparePasswords(
       password,
       userExists?.password || '',
     )
 
-    if (!userExists || !passwordsMatch) {
-      throw new UnauthorizedException(`Invalid email or password`)
-    }
+    if (!userExists || !passwordsMatch) return null
 
     /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    const { password: userPassword, ...user } = userExists
-    const token = await this.jwtService.signAsync(user)
+    const { _id, password: userPassword, ...user } = userExists
+    return user
+  }
 
-    return { token, user }
+  async generateToken(user: UserInfo) {
+    const token = await this.jwtService.signAsync(user)
+    return { ...user, token }
   }
 
   hashPassword(password: string) {

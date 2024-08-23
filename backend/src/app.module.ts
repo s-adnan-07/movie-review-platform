@@ -9,6 +9,7 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { MongoModule } from './shared'
 
+// TODO: Add env file and config service
 @Module({
   imports: [MongoModule, UsersModule, AuthModule, MoviesModule, ReviewsModule],
   controllers: [AppController],
