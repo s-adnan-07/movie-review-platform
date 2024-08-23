@@ -26,6 +26,7 @@ export class MoviesController {
     return this.moviesService.findOne(id)
   }
 
+  // TODO: add interceptor to strip userids and movie name
   @Get(':movieId/reviews')
   findReviews(@Param('id') id: string) {
     return this.moviesService.findReviews(id)

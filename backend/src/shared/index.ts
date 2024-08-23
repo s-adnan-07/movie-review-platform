@@ -19,6 +19,7 @@ export * from './decorators/public.decorator'
 
 // Guards
 export * from './guards/jwt.guard'
+export * from './guards/local.guard'
 
 // Classes
 export * from './classes/user-info'
