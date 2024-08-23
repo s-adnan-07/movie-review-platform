@@ -5,6 +5,7 @@ export * from './modules/mongo.module'
 export * from './dtos/create-user.dto'
 export * from './dtos/login-details.dto'
 export * from './dtos/create-review.dto'
+export * from './dtos/create-movie.dto'
 
 // Entities
 export * from './entities/user.entity'

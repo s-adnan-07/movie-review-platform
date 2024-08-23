@@ -8,7 +8,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common'
-import { CreateReviewDto, JwtGuard } from '@/shared'
+import { CreateMovieDto, CreateReviewDto, JwtGuard } from '@/shared'
 import { MoviesService } from './movies.service'
 import { Request } from 'express'
 
@@ -24,6 +24,12 @@ export class MoviesController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.moviesService.findOne(id)
+  }
+
+  @Post()
+  @UseGuards(JwtGuard)
+  createOne(@Body() createMovieDto: CreateMovieDto) {
+    return this.moviesService.createOne(createMovieDto)
   }
 
   // TODO: add interceptor to strip userids and movie name

@@ -1,4 +1,9 @@
-import { CreateReviewDto, MovieEntity, UserInfo } from '@/shared'
+import {
+  CreateMovieDto,
+  CreateReviewDto,
+  MovieEntity,
+  UserInfo,
+} from '@/shared'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { ObjectId } from 'mongodb'
@@ -21,6 +26,11 @@ export class MoviesService {
 
   findOne(id: string) {
     return this.MoviesRepository.findOneBy({ _id: new ObjectId(id) })
+  }
+
+  createOne(createMovieDto: CreateMovieDto) {
+    const movie = this.MoviesRepository.create(createMovieDto)
+    return this.MoviesRepository.save(movie)
   }
 
   // TODO: calculate avarate rating from all reviews
