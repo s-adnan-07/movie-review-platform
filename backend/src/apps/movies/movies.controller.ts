@@ -8,7 +8,15 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common'
-import { CreateMovieDto, CreateReviewDto, JwtGuard } from '@/shared'
+
+import {
+  CreateMovieDto,
+  CreateReviewDto,
+  JwtGuard,
+  Roles,
+  RolesGuard,
+} from '@/shared'
+
 import { MoviesService } from './movies.service'
 import { Request } from 'express'
 
@@ -27,7 +35,8 @@ export class MoviesController {
   }
 
   @Post()
-  @UseGuards(JwtGuard)
+  @Roles(['admin'])
+  @UseGuards(JwtGuard, RolesGuard)
   createOne(@Body() createMovieDto: CreateMovieDto) {
     return this.moviesService.createOne(createMovieDto)
   }

@@ -17,10 +17,12 @@ export * from './interceptors/response.interceptor'
 
 // Decorators
 export * from './decorators/public.decorator'
+export * from './decorators/roles.decorator'
 
 // Guards
 export * from './guards/jwt.guard'
 export * from './guards/local.guard'
+export * from './guards/roles.guard'
 
 // Classes
 export * from './classes/user-info'
