@@ -8,15 +8,18 @@ import App from './App.tsx'
 
 import { darkTheme } from './themes/defaultTheme.ts'
 import { AuthProvider } from './contexts/AuthContext.tsx'
+import QueryProvider from './providers/QueryProvider.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
       <BrowserRouter>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+            <App />
+          </ThemeProvider>
+        </QueryProvider>
       </BrowserRouter>
     </AuthProvider>
   </StrictMode>
