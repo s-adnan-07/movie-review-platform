@@ -1,18 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { Authstate, User } from '@/types/auth.types'
 
 type Props = {
   children: React.ReactNode
-}
-
-type User = {
-  name: string
-  email: string
-  role: string
-} | null
-
-type Authstate = {
-  user: User
-  setUser: (user: User | (() => User)) => void
 }
 
 const initialState: Authstate = {
