@@ -1,18 +1,20 @@
 import Alert from '@mui/material/Alert'
 import Collapse from '@mui/material/Collapse'
 import Stack from '@mui/material/Stack'
+import { Severity } from '../types'
 
 type Props = {
-  errors: string[]
+  messages: string[]
+  severity?: Severity
 }
 
-function AlertStack({ errors }: Props) {
+function AlertStack({ messages, severity = 'error' }: Props) {
   return (
-    <Collapse in={Boolean(errors.length)}>
+    <Collapse in={Boolean(messages.length)}>
       <Stack>
-        {errors.map(error => (
-          <Alert variant="filled" severity="error">
-            {error}
+        {messages.map(message => (
+          <Alert variant="filled" severity={severity}>
+            {message}
           </Alert>
         ))}
       </Stack>
