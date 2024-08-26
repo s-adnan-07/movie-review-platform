@@ -2,6 +2,8 @@ services:
   frontend:
     container_name: frontend
     build: ./frontend
+    env_file:
+      - ./frontend/.env
     ports:
       - 4000:80
     depends_on:
@@ -10,13 +12,15 @@ services:
   backend:
     container_name: backend
     build: ./backend
+    env_file:
+      - ./backend/.env
     ports:
       - 4040:3000
     depends_on:
-      - mongo
+      - mongo_db
 
-  mongo:
-    container_name: mongo
+  mongo_db:
+    container_name: mongo_db
     image: mongo
     ports:
       - 27017:27017
