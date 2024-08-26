@@ -20,6 +20,10 @@ export class ReviewsService {
     return this.ReviewsRepository.find({ where: { movie: new ObjectId(id) } })
   }
 
+  findOne(id: string) {
+    return this.ReviewsRepository.findOneBy({ _id: new ObjectId(id) })
+  }
+
   findByUser(id: string) {
     return this.ReviewsRepository.find({ where: { user: new ObjectId(id) } })
   }

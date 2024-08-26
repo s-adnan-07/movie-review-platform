@@ -21,8 +21,13 @@ export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) {}
 
   @Get()
-  getUserReviews(@Req() { user }: Request) {
+  findByUser(@Req() { user }: Request) {
     return this.reviewsService.findByUser(user._id)
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.reviewsService.findOne(id)
   }
 
   @UseInterceptors(new UpdateInterceptor())
