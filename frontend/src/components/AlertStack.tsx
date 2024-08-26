@@ -1,7 +1,7 @@
 import Alert from '@mui/material/Alert'
 import Collapse from '@mui/material/Collapse'
 import Stack from '@mui/material/Stack'
-import { Severity } from '../types'
+import { Severity } from '@/types/alert.types'
 
 type Props = {
   messages: string[]
