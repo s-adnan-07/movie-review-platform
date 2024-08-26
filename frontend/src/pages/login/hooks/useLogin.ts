@@ -22,7 +22,7 @@ function useLogin() {
   const navigate = useNavigate()
   const { setUser } = useAuth()
 
-  const { refetch } = useQuery<LoginSuccess, LoginFail>({
+  const { refetch, isSuccess, isLoading } = useQuery<LoginSuccess, LoginFail>({
     queryKey: ['register'],
     queryFn: sendCredentials,
     enabled: false,
@@ -69,7 +69,14 @@ function useLogin() {
     setTimeout(() => navigate('/', { replace: true }), ONE_SECOND)
   }
 
-  return { messages, severity, handleSubmit, handleChange }
+  return {
+    messages,
+    severity,
+    isSuccess,
+    isLoading,
+    handleSubmit,
+    handleChange,
+  }
 }
 
 export default useLogin
