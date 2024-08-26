@@ -1,10 +1,23 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
-import { LoginDetailsDto } from './login-details.dto'
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator'
 
-export class CreateUserDto extends LoginDetailsDto {
+export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   name: string
+
+  @IsNotEmpty()
+  @IsEmail()
+  email: string
+
+  @IsNotEmpty()
+  @MinLength(8)
+  password: string
 
   @IsOptional()
   @IsString()

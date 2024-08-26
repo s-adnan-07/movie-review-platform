@@ -1,12 +1,10 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator'
+import { IsNotEmpty } from 'class-validator'
 
+// We remove all validations as user login will fail since details dont match in db
 export class LoginDetailsDto {
   @IsNotEmpty()
-  @IsEmail()
   email: string
 
   @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
   password: string
 }
