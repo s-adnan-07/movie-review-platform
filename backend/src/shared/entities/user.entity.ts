@@ -1,4 +1,10 @@
-import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ObjectId,
+  ObjectIdColumn,
+} from 'typeorm'
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -18,4 +24,7 @@ export class UserEntity {
   // This is the only way to set default values
   @Column({ type: 'string' })
   role = 'local'
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date = new Date()
 }

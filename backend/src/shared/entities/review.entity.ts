@@ -1,4 +1,10 @@
-import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ObjectId,
+  ObjectIdColumn,
+} from 'typeorm'
 
 // TODO: add movie + user field and make it unique
 @Entity({ name: 'reviews' })
@@ -24,4 +30,7 @@ export class ReviewEntity {
 
   @Column()
   feedback: string
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date = new Date()
 }
