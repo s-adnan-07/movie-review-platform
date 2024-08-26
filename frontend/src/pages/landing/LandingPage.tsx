@@ -9,13 +9,13 @@ import Info from '@mui/icons-material/Info'
 
 import Loading from '@/components/Loading'
 import NotFound from '@/components/NotFound'
-import useMovies from './hooks/useMovies'
+import useLanding from './hooks/useLanding'
 
 import img from '@/assets/movie.webp'
 
 function LandingPage() {
   const matches = useMediaQuery('(min-width:800px)')
-  const { movies, isLoading } = useMovies()
+  const { movies, isLoading } = useLanding()
 
   if (isLoading) return <Loading />
   if (!movies) return <NotFound />
