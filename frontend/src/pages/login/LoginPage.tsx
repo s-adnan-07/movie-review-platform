@@ -7,22 +7,34 @@ import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 
+import AlertStack from '@/components/AlertStack'
+import useLogin from './hooks/useLogin'
+
 function LoginPage() {
+  const { messages, severity, handleSubmit, handleChange } = useLogin()
+
   return (
-    <Container maxWidth="xs" sx={{ mt: '20vh' }}>
-      <Paper component="form">
+    <Container maxWidth="xs" sx={{ mt: '15vh' }}>
+      <Paper component="form" onChange={handleChange} onSubmit={handleSubmit}>
         <Stack>
           <Typography variant="h4" component="div" align="center">
             Login
           </Typography>
 
-          <TextField label="email" type="text" required />
-          <TextField label="password" type="password" required />
+          <TextField name="email" label="email" type="text" required />
+          <TextField
+            name="password"
+            label="password"
+            type="password"
+            required
+          />
 
           <Button type="submit">Login</Button>
           <Typography variant="caption">
             Don't have an account ? <Link to="/register">Register</Link>
           </Typography>
+
+          <AlertStack messages={messages} severity={severity} />
         </Stack>
       </Paper>
     </Container>
