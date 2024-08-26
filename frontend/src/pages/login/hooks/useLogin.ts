@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 
-import { VITE_SERVER_URL } from '@/constants'
+import { VITE_SERVER_URL, ONE_SECOND } from '@/constants'
 import { useAuth } from '@/contexts/AuthContext'
 import { Severity } from '@/types/alert.types'
 import { LoginFail, LoginState, LoginSuccess, TokenResp } from '../types'
@@ -12,8 +12,6 @@ const initialState: LoginState = {
   email: '',
   password: '',
 }
-
-const ONE_SECOND = 1000
 
 function useLogin() {
   const [userData, setUserData] = useState(() => initialState)
