@@ -8,10 +8,18 @@ import { ReviewsModule } from './apps/reviews/reviews.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { MongoModule } from './shared'
+import { ConfigModule } from '@nestjs/config'
 
 // TODO: Add env file and config service
 @Module({
-  imports: [MongoModule, UsersModule, AuthModule, MoviesModule, ReviewsModule],
+  imports: [
+    MongoModule,
+    UsersModule,
+    AuthModule,
+    MoviesModule,
+    ReviewsModule,
+    ConfigModule.forRoot({ isGlobal: true, ignoreEnvFile: true }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
