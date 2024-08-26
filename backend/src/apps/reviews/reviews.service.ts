@@ -20,6 +20,10 @@ export class ReviewsService {
     return this.ReviewsRepository.find({ where: { movie: new ObjectId(id) } })
   }
 
+  findByUser(id: string) {
+    return this.ReviewsRepository.find({ where: { user: new ObjectId(id) } })
+  }
+
   // TODO: convert positional arguments to object
   // TODO: Ensure a user can post only 1 review per movie
   // Create a combo field "username + moviename"

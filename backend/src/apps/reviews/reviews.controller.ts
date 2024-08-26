@@ -2,8 +2,10 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Put,
+  Req,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common'
@@ -11,11 +13,17 @@ import { CreateReviewDto, JwtGuard } from '@/shared'
 import { ReviewsService } from './reviews.service'
 import { UpdateInterceptor } from './interceptors/update.interceptor'
 import { DeleteInterceptor } from './interceptors/delete.interceptor'
+import { Request } from 'express'
 
 @UseGuards(JwtGuard)
 @Controller('reviews')
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) {}
+
+  @Get()
+  getUserReviews(@Req() { user }: Request) {
+    return this.reviewsService.findByUser(user._id)
+  }
 
   @UseInterceptors(new UpdateInterceptor())
   @Put(':id')
