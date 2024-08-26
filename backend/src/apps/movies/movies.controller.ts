@@ -43,7 +43,7 @@ export class MoviesController {
 
   // TODO: add interceptor to strip userids and movie name
   @Get(':movieId/reviews')
-  findReviews(@Param('id') id: string) {
+  findReviews(@Param('movieId') id: string) {
     return this.moviesService.findReviews(id)
   }
 
