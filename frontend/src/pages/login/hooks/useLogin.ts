@@ -22,7 +22,7 @@ function useLogin() {
   const navigate = useNavigate()
   const { setUser } = useAuth()
 
-  const { refetch, isSuccess, isLoading } = useQuery<LoginSuccess, LoginFail>({
+  const { refetch, isLoading } = useQuery<LoginSuccess, LoginFail>({
     queryKey: ['register'],
     queryFn: sendCredentials,
     enabled: false,
@@ -72,7 +72,6 @@ function useLogin() {
   return {
     messages,
     severity,
-    isSuccess,
     isLoading,
     handleSubmit,
     handleChange,

@@ -11,14 +11,8 @@ import AlertStack from '@/components/AlertStack'
 import useLogin from './hooks/useLogin'
 
 function LoginPage() {
-  const {
-    messages,
-    severity,
-    isLoading,
-    isSuccess,
-    handleSubmit,
-    handleChange,
-  } = useLogin()
+  const { messages, severity, isLoading, handleSubmit, handleChange } =
+    useLogin()
 
   return (
     <Container maxWidth="xs" sx={{ mt: '15vh' }}>
@@ -36,7 +30,7 @@ function LoginPage() {
             required
           />
 
-          <Button type="submit" disabled={isLoading || isSuccess}>
+          <Button type="submit" disabled={isLoading}>
             Login
           </Button>
           <Typography variant="caption">

@@ -1,5 +1,4 @@
 import { ApiSuccess, BadRequest } from '@/types/api.types'
-import { User } from '@/types/auth.types'
 import { AxiosError, AxiosResponse } from 'axios'
 
 export type RegisterState = {
@@ -10,7 +9,5 @@ export type RegisterState = {
 }
 
 export type SignUpResp = ApiSuccess<string>
-export type TokenResp = ApiSuccess<User & { token: string }>
-export type Success = AxiosResponse<SignUpResp>
-export type Fail = AxiosError<BadRequest>
-export type Severity = 'error' | 'info' | 'success' | 'warning'
+export type SignUpSuccess = AxiosResponse<SignUpResp>
+export type SignUpFail = AxiosError<BadRequest>

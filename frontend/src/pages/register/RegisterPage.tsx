@@ -8,11 +8,12 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 
 import useRegister from './hooks/useRegister'
-import AlertStack from './components/AlertStack'
+import AlertStack from '@/components/AlertStack'
 
 // TODO: Add validation for password and confirm password
 function RegisterPage() {
-  const { messages, severity, handleSubmit, handleChange } = useRegister()
+  const { messages, severity, isLoading, handleSubmit, handleChange } =
+    useRegister()
 
   return (
     <Container maxWidth="xs" sx={{ mt: '5vh' }}>
@@ -39,7 +40,9 @@ function RegisterPage() {
             required
           />
 
-          <Button type="submit">Register</Button>
+          <Button type="submit" disabled={isLoading}>
+            Register
+          </Button>
 
           <Typography variant="caption">
             Already have an account ? <Link to="/login">Login</Link>

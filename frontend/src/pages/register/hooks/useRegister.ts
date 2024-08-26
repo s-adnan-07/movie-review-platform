@@ -1,10 +1,11 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-
-import { Fail, RegisterState, Severity, SignUpResp, Success } from '../types'
-import { VITE_SERVER_URL } from '@/constants'
 import { useNavigate } from 'react-router-dom'
+
+import { VITE_SERVER_URL } from '@/constants'
+import { Severity } from '@/types/alert.types'
+import { SignUpSuccess, SignUpFail, RegisterState, SignUpResp } from '../types'
 
 const initialState: RegisterState = {
   name: '',
@@ -13,13 +14,15 @@ const initialState: RegisterState = {
   confirm: '',
 }
 
+const ONE_SECOND = 1000
+
 function useRegister() {
   const [userData, setUserData] = useState(() => initialState)
   const [messages, setMessages] = useState<string[]>([])
   const [severity, setSeverity] = useState<Severity>('error')
   const navigate = useNavigate()
 
-  const { refetch } = useQuery<Success, Fail>({
+  const { refetch, isLoading } = useQuery<SignUpSuccess, SignUpFail>({
     queryKey: ['register'],
     queryFn: sendCredentials,
     enabled: false,
@@ -58,16 +61,21 @@ function useRegister() {
     if (data) {
       setSeverity('success')
       setMessages([data.data.data])
-      setTimeout(() => navigate('/login', { replace: true }), 3000)
+      setTimeout(() => navigate('/login', { replace: true }), ONE_SECOND)
     }
 
     if (error) {
-      console.dir(error.response?.data)
       setMessages(() => error.response?.data.message.map(m => m) ?? [])
     }
   }
 
-  return { messages, severity, handleSubmit, handleChange }
+  return {
+    messages,
+    severity,
+    isLoading,
+    handleSubmit,
+    handleChange,
+  }
 }
 
 export default useRegister
