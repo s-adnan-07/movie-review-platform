@@ -7,4 +7,6 @@ import { UserEntity } from '../entities/user.entity'
 export class UserInfo extends OmitType(UserEntity, [
   'password',
   '_id',
-] as const) {}
+] as const) {
+  _id: string
+}

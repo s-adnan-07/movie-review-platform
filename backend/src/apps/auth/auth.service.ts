@@ -20,7 +20,7 @@ export class AuthService {
     const user = await this.usersService.findUser(email)
 
     if (user) {
-      throw new ForbiddenException(`User with email ${email} already exists`)
+      throw new ForbiddenException([`User with email ${email} already exists`])
     }
 
     const hashedPassword = await this.hashPassword(password)
@@ -44,7 +44,7 @@ export class AuthService {
 
     /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
     const { _id, password: userPassword, ...user } = userExists
-    return user
+    return { _id: _id.toString(), ...user }
   }
 
   async generateToken(user: UserInfo) {
